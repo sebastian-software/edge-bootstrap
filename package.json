@@ -1,6 +1,6 @@
 {
   "name": "edge-bootstrap",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Bootstrapping of edge project",
   "main": "lib/node.commonjs.js",
   "module": "lib/node.esmodules.js",
