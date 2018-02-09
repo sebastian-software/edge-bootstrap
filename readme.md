@@ -12,6 +12,6 @@ Bootstrapping application to setup an [edge] application.
 
 ## Copyright
 
-<img src="https://raw.githubusercontent.com/sebastian-software/sebastian-software-brand/master/sebastiansoftware-en.svg" alt="Sebastian Software GmbH Logo" width="250" height="200"/>
+<img src="https://github.com/sebastian-software/edge/raw/master/assets/sebastiansoftware.png" alt="Sebastian Software GmbH Logo" width="250" height="200"/>
 
 Copyright 2018<br/>[Sebastian Software GmbH](http://www.sebastian-software.de)
