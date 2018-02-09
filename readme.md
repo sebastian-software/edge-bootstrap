@@ -12,6 +12,7 @@ Bootstrapping application to setup an [edge] application.
     
 ```
 # mkdir myproject
+# cd myproject
 ```
 
 2. Create package.json
