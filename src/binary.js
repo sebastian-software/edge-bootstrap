@@ -2,6 +2,7 @@
 import chalk from "chalk"
 import mkdirp from "mkdirp"
 import tar from "tar"
+import ora from "ora"
 
 import fs from "fs"
 import util from "util"
@@ -60,29 +61,36 @@ async function main() {
 
   const packageJsonContent = JSON.parse(await fsReadFile(packageJsonPath, "utf8"))
 
+  const spinner = ora("Write project files from template").start()
+
   const tarParser = new tar.Parse()
   fs
     .createReadStream(templatePath)
     .pipe(tarParser)
     .on("entry", (entry) => {
-      console.log(">> ", entry.path, entry.type)
       const entryPath = path.join(CWD, entry.path)
 
       if (entry.type === "Directory") {
+        spinner.text = `Create path ${entryPath}`
         mkdirp(entryPath, () => {
           entry.resume()
         })
       } else if (entry.type === "File") {
         if (entry.path.endsWith("/package.json")) {
+          spinner.text = "Update file package.json"
           entry.on("data", (data) => {
             const templatePackageJson = JSON.parse(data.toString())
 
             writePackageJson(packageJsonPath, packageJsonContent, templatePackageJson)
           })
         } else {
+          spinner.text = `Create file ${entryPath}`
           entry.pipe(fs.createWriteStream(entryPath))
         }
       }
+    })
+    .on("end", () => {
+      spinner.succeed("Wrote project files from template")
     })
 }
 
