@@ -36,6 +36,7 @@
     "chalk": "^2.3.0",
     "lean-nodent-runtime": "^1.0.1",
     "mkdirp": "^0.5.1",
+    "ora": "^1.4.0",
     "tar": "^4.3.3"
   },
   "devDependencies": {
