@@ -3,6 +3,7 @@ import chalk from "chalk"
 import mkdirp from "mkdirp"
 import tar from "tar"
 import ora from "ora"
+import clipboardy from "clipboardy"
 
 import fs from "fs"
 import util from "util"
@@ -91,14 +92,20 @@ async function main() {
     })
     .on("end", () => {
       spinner.succeed("Wrote project files from template")
+
+      const gettingStartedCommand = "npm install && npm run dev"
+
       console.log()
       console.log(
         chalk.cyan(
-          `Run ${chalk.whiteBright(
-            "npm install && npm run dev"
-          )} to start development mode`
+          `Run ${chalk.yellow(gettingStartedCommand)} to start development mode.`
         )
       )
+      console.log(
+        chalk.cyan("It's on your clipboard right now, so press CTRL-V or CMD-V!")
+      )
+
+      clipboardy.writeSync(gettingStartedCommand)
     })
 }
 
