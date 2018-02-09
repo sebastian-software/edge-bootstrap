@@ -6,6 +6,7 @@
   "module": "lib/node.esmodules.js",
   "scripts": {
     "prepare": "npm run build",
+    "prepack": "tools/prepack",
     "build": "rimraf bin && rimraf lib && prepublish",
     "build:watch": "chokidar 'src/**/*.js' 'package.json' -c 'npm run build'",
     "release": "git push && release-it --github.release --npm.publish --non-interactive",

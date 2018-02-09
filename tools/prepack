@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo "Prepack shell script"
+
+CWD=$(pwd)
+EDGE_BOILERPLATE_PATH="${CWD}/../edge-boilerplate"
+
+if [ ! -d "${EDGE_BOILERPLATE_PATH}" ]; then
+  echo "${EDGE_BOILERPLATE_PATH} does not exist"
+  exit 1
+fi
+
+rm -fr "${CWD}/template"
+mkdir -p "${CWD}/template"
+
+cp -R ${EDGE_BOILERPLATE_PATH}/* ${CWD}/template/.
+cp ${EDGE_BOILERPLATE_PATH}/.* ${CWD}/template/.
