@@ -1,17 +1,29 @@
-#!/bin/bash
-set -x
+#!/usr/bin/env node
+/* eslint-disable */
 
-echo "Prepack shell script"
+const path = require("path")
+const tar = require("tar")
 
-CWD=$(pwd)
-TEMPLATE_PATH="${CWD}/template.tar"
-EDGE_BOILERPLATE_PATH="${CWD}/../edge-boilerplate"
+console.log("prepack node script")
 
-if [ ! -d "${EDGE_BOILERPLATE_PATH}" ]; then
-  echo "${EDGE_BOILERPLATE_PATH} does not exist"
-  exit 1
-fi
+const CWD = process.cwd()
+const TEMPLATE_PATH = path.join(CWD, "template.tar")
+const EDGE_BOILERPLATE_PATH = path.join(CWD, "..", "edge-boilerplate")
 
-cd ${EDGE_BOILERPLATE_PATH}
-tar -cf "${TEMPLATE_PATH}" .
-cd "${CWD}"
+tar
+  .create(
+    {
+      file: TEMPLATE_PATH,
+      cwd: EDGE_BOILERPLATE_PATH,
+      follow: true
+    },
+    ["."]
+  )
+  .then(() => {
+    console.log("template.tar created")
+    process.exit(0)
+  })
+  .catch((error) => {
+    console.error(error.stack)
+    process.exit(1)
+  })
