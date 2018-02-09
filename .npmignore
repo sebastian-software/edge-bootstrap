@@ -17,3 +17,4 @@ appveyor.yml
 package-lock.json
 rollup.config.js
 yarn.lock
+edge-bootstrap-*.tgz
