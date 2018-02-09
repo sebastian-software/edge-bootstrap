@@ -4,6 +4,7 @@ Bootstrapping application to setup an [edge] application.
 
 [edge]: https://github.com/sebastian-software/edge
 [sponsor-img]: https://img.shields.io/badge/Sponsored%20by-Sebastian%20Software-692446.svg
+[sponsor]: https://www.sebastian-software.de
 
 ## License
 
