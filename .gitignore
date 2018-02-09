@@ -4,4 +4,4 @@ build
 bin
 lib
 .env
-
+template
