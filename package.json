@@ -34,6 +34,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "chalk": "^2.3.0",
+    "lean-nodent-runtime": "^1.0.1",
     "tar-parse": "0.0.2"
   },
   "devDependencies": {
