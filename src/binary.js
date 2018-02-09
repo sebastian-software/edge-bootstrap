@@ -91,6 +91,14 @@ async function main() {
     })
     .on("end", () => {
       spinner.succeed("Wrote project files from template")
+      console.log()
+      console.log(
+        chalk.cyan(
+          `Run ${chalk.whiteBright(
+            "npm install && npm run dev"
+          )} to start development mode`
+        )
+      )
     })
 }
 
