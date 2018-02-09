@@ -1,8 +1,10 @@
 #!/bin/bash
+set -x
 
 echo "Prepack shell script"
 
 CWD=$(pwd)
+TEMPLATE_PATH="${CWD}/template.tar"
 EDGE_BOILERPLATE_PATH="${CWD}/../edge-boilerplate"
 
 if [ ! -d "${EDGE_BOILERPLATE_PATH}" ]; then
@@ -10,8 +12,6 @@ if [ ! -d "${EDGE_BOILERPLATE_PATH}" ]; then
   exit 1
 fi
 
-rm -fr "${CWD}/template"
-mkdir -p "${CWD}/template"
-
-cp -R ${EDGE_BOILERPLATE_PATH}/* ${CWD}/template/.
-cp ${EDGE_BOILERPLATE_PATH}/.* ${CWD}/template/.
+cd ${EDGE_BOILERPLATE_PATH}
+tar -cf "${TEMPLATE_PATH}" .
+cd "${CWD}"
