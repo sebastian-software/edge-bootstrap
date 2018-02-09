@@ -11,6 +11,8 @@
     "release": "git push && release-it --github.release --npm.publish --non-interactive",
     "release:minor": "git push && release-it --github.release --npm.publish --non-interactive --increment minor",
     "release:major": "git push && release-it --github.release --npm.publish --non-interactive --increment major",
+    "release:beta:major": "git push && release-it --github.release --npm.publish --non-interactive --increment --preRelease=beta major",
+    "release:beta": "git push && release-it --github.release --npm.publish --non-interactive --preRelease=beta",
     "test": "jest",
     "lint:js": "eslint --ignore-path .gitignore .",
     "fix:js": "eslint --ignore-path .gitignore --fix .",
