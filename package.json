@@ -30,7 +30,8 @@
     "edge-bootstrap": "bin/edge-bootstrap"
   },
   "files": [
-    "bin/"
+    "bin/",
+    "template.tar"
   ],
   "pre-commit": "lint-staged",
   "lint-staged": {
