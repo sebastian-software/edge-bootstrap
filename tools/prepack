@@ -8,7 +8,7 @@ console.log("prepack node script")
 
 const CWD = process.cwd()
 const TEMPLATE_PATH = path.join(CWD, "template.tar")
-const EDGE_BOILERPLATE_PATH = path.join(CWD, "..", "edge-boilerplate")
+const EDGE_BOILERPLATE_PATH = path.join(CWD, "..", "edge", "packages", "edge-boilerplate")
 
 tar
   .create(
