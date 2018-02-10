@@ -31,6 +31,9 @@
   "bin": {
     "edge-bootstrap": "bin/edge-bootstrap"
   },
+  "files": [
+    "bin/"
+  ],
   "pre-commit": "lint-staged",
   "lint-staged": {
     "*.js": "eslint"
