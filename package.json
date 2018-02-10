@@ -46,8 +46,8 @@
   },
   "devDependencies": {
     "chokidar-cli": "^1.2.0",
-    "eslint": "^4.17.0",
     "eslint-config-readable": "^1.10.2",
+    "lint-staged": "^6.1.0",
     "prepublish": "^1.6.2",
     "release-it": "^7.0.0"
   }
