@@ -9,7 +9,7 @@ Bootstrapping application to setup an [edge] application.
 ## Getting started
 
 1. Make a new folder for your project
-    
+
 ```
 # mkdir myproject
 # cd myproject
@@ -18,7 +18,7 @@ Bootstrapping application to setup an [edge] application.
 2. Create package.json
 
 ```
-# npm init
+# npm init -y
 ```
 
 3. Bootstrap edge stack
