@@ -1,8 +1,8 @@
-/* eslint-disable security/detect-non-literal-fs-filename, security/detect-object-injection, id-length */
+/* eslint-disable security/detect-non-literal-fs-filename, security/detect-object-injection */
 import chalk from "chalk"
 import mkdirp from "mkdirp"
-import tar from "tar"
-import ora from "ora"
+import tarchive from "tar"
+import oraSpinner from "ora"
 import clipboardy from "clipboardy"
 
 import fs from "fs"
@@ -64,9 +64,9 @@ async function main() {
 
   const packageJsonContent = JSON.parse(await fsReadFile(packageJsonPath, "utf8"))
 
-  const spinner = ora("Write project files from template").start()
+  const spinner = oraSpinner("Write project files from template").start()
 
-  const tarParser = new tar.Parse()
+  const tarParser = new tarchive.Parse()
   fs
     .createReadStream(templatePath)
     .pipe(tarParser)
