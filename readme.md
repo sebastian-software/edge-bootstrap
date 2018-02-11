@@ -1,6 +1,6 @@
-# Edge Bootstrap<br/>[![Sponsored by][sponsor-img]][sponsor]
+# Edge Create<br/>[![Sponsored by][sponsor-img]][sponsor]
 
-Bootstrapping application to setup an [edge] application.
+Bootstraps [edge] based application.
 
 [edge]: https://github.com/sebastian-software/edge
 [sponsor-img]: https://img.shields.io/badge/Sponsored%20by-Sebastian%20Software-692446.svg
@@ -21,10 +21,10 @@ Bootstrapping application to setup an [edge] application.
 # npm init -y
 ```
 
-3. Bootstrap edge stack
+3. Create edge stack based app
 
 ```
-# npx edge-bootstrap
+# npx edge-create
 ```
 
 ## License
