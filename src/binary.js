@@ -103,9 +103,21 @@ async function main() {
           `Run ${chalk.yellow(gettingStartedCommand)} to start development mode.`
         )
       )
-      console.log(
-        chalk.cyan("It's on your clipboard right now, so press CTRL-V or CMD-V!")
-      )
+
+      let pasteText =
+        "It's on your clipboard right now, so simply paste it into your console."
+
+      const platform = process.platform
+      if (platform === "darwin") {
+        pasteText =
+          "It's on your clipboard right now, so press Command-V in your console."
+      } else if (platform === "win32") {
+        pasteText = "It's on your clipboard right now, so press CTRL-V in your console."
+      } else if (platform === "linux") {
+        pasteText =
+          "It's on your clipboard right now, so press CTRL-SHIFT-V in your console."
+      }
+      console.log(chalk.cyan(pasteText))
 
       clipboardy.writeSync(gettingStartedCommand)
     })
