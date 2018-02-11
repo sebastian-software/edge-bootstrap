@@ -1,4 +1,4 @@
-/* eslint-disable no-console, security/detect-non-literal-fs-filename, security/detect-object-injection */
+/* eslint-disable no-console, security/detect-non-literal-fs-filename, security/detect-object-injection, id-length */
 import chalk from "chalk"
 import mkdirp from "mkdirp"
 import tar from "tar"
