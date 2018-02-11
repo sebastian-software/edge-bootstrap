@@ -1,6 +1,6 @@
 {
   "name": "edge-create",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Bootstrapping of edge project",
   "repository": {
     "type": "git",
@@ -12,19 +12,14 @@
     "build": "rimraf bin && rimraf lib && prepublish",
     "build:watch": "chokidar 'src/**/*.js' 'package.json' -c 'npm run build'",
     "release": "git push && release-it --github.release --npm.publish --non-interactive",
-    "release:minor":
-      "git push && release-it --github.release --npm.publish --non-interactive --increment minor",
-    "release:major":
-      "git push && release-it --github.release --npm.publish --non-interactive --increment major",
-    "release:beta:major":
-      "git push && release-it --github.release --npm.publish --non-interactive --increment --preRelease=beta major",
-    "release:beta":
-      "git push && release-it --github.release --npm.publish --non-interactive --preRelease=beta",
+    "release:minor": "git push && release-it --github.release --npm.publish --non-interactive --increment minor",
+    "release:major": "git push && release-it --github.release --npm.publish --non-interactive --increment major",
+    "release:beta:major": "git push && release-it --github.release --npm.publish --non-interactive --increment --preRelease=beta major",
+    "release:beta": "git push && release-it --github.release --npm.publish --non-interactive --preRelease=beta",
     "test": "jest",
     "lint:js": "eslint --ignore-path .gitignore .",
     "fix:js": "eslint --ignore-path .gitignore --fix .",
-    "format:js":
-      "prettier --ignore-path .gitignore --write '**/*.{js,mjs}' && npm run fix:js"
+    "format:js": "prettier --ignore-path .gitignore --write '**/*.{js,mjs}' && npm run fix:js"
   },
   "author": {
     "name": "Sebastian Fastner",
@@ -34,7 +29,10 @@
   "bin": {
     "edge-create": "bin/edge-create"
   },
-  "files": ["bin/", "template.tar"],
+  "files": [
+    "bin/",
+    "template.tar"
+  ],
   "pre-commit": "lint-staged",
   "lint-staged": {
     "*.js": "eslint"
