@@ -1,4 +1,4 @@
-/* eslint-disable no-console, security/detect-non-literal-fs-filename, security/detect-object-injection, id-length */
+/* eslint-disable security/detect-non-literal-fs-filename, security/detect-object-injection, id-length */
 import chalk from "chalk"
 import mkdirp from "mkdirp"
 import tar from "tar"
@@ -9,6 +9,8 @@ import fs from "fs"
 import util from "util"
 import path from "path"
 
+import { write, writeLn } from "./console"
+
 import pkg from "../package.json"
 
 const fsAccess = util.promisify(fs.access)
@@ -18,7 +20,7 @@ const CWD = process.cwd()
 const IS_INTERACTIVE = process.stdout.isTTY
 
 if (IS_INTERACTIVE) {
-  process.stdout.write(process.platform === "win32" ? "\x1Bc" : "\x1B[2J\x1B[3J\x1B[H")
+  write(process.platform === "win32" ? "\x1Bc" : "\x1B[2J\x1B[3J\x1B[H")
 }
 
 function writePackageJson(packageJsonPath, baseObj, templateObj) {
@@ -40,17 +42,15 @@ function writePackageJson(packageJsonPath, baseObj, templateObj) {
 }
 
 async function main() {
-  console.log(chalk.bold(`edge create ${chalk.green(`v${pkg.version}`)}`))
-  console.log()
+  writeLn(chalk.bold(`edge create ${chalk.green(`v${pkg.version}`)}`))
+  writeLn()
 
   const packageJsonPath = path.join(CWD, "package.json")
   try {
     await fsAccess(packageJsonPath)
   } catch (error) {
-    console.log(chalk.red(`No package.json found in current path ${CWD}`))
-    console.log(
-      chalk.cyan(`> You might want to run ${chalk.white.bold("npm init")} first`)
-    )
+    writeLn(chalk.red(`No package.json found in current path ${CWD}`))
+    writeLn(chalk.cyan(`> You might want to run ${chalk.white.bold("npm init")} first`))
     return
   }
 
@@ -58,7 +58,7 @@ async function main() {
   try {
     await fsAccess(templatePath)
   } catch (error) {
-    console.log(chalk.red(`No template.tar found in path ${__dirname}/..`))
+    writeLn(chalk.red(`No template.tar found in path ${__dirname}/..`))
     return
   }
 
@@ -97,8 +97,8 @@ async function main() {
 
       const gettingStartedCommand = "npm install && npm run dev"
 
-      console.log()
-      console.log(
+      writeLn()
+      writeLn(
         chalk.cyan(
           `Run ${chalk.yellow(gettingStartedCommand)} to start development mode.`
         )
@@ -117,10 +117,10 @@ async function main() {
         pasteText =
           "It's on your clipboard right now, so press CTRL-SHIFT-V in your console."
       }
-      console.log(chalk.cyan(pasteText))
+      writeLn(chalk.cyan(pasteText))
 
       clipboardy.writeSync(gettingStartedCommand)
     })
 }
 
-main().catch((error) => console.log(chalk.red(error.stack)))
+main().catch((error) => writeLn(chalk.red(error.stack)))
