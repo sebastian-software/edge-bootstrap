@@ -5,4 +5,4 @@ bin
 lib
 .env
 template.tar
-edge-bootstrap-*.tgz
+edge-create-*.tgz
