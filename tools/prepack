@@ -2,6 +2,8 @@
 /* eslint-disable */
 
 const path = require("path")
+const fs = require("fs")
+
 const tar = require("tar")
 
 console.log("prepack node script")
@@ -9,6 +11,14 @@ console.log("prepack node script")
 const CWD = process.cwd()
 const TEMPLATE_PATH = path.join(CWD, "template.tar")
 const EDGE_BOILERPLATE_PATH = path.join(CWD, "..", "edge", "packages", "edge-boilerplate")
+
+try {
+  fs.accessSync(EDGE_BOILERPLATE_PATH, fs.constants.R_OK)
+} catch (error) {
+  console.error(`Path ${EDGE_BOILERPLATE_PATH} is not accessible`)
+  console.error("The edge git repo should be placed beside the edge-create repo")
+  process.exit(2)
+}
 
 tar
   .create(
