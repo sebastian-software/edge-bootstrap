@@ -24,11 +24,11 @@ if (IS_INTERACTIVE) {
 function writePackageJson(packageJsonPath, baseObj, templateObj) {
   const newContent = { ...baseObj }
 
-  for (const key of ["main", "module", "bin", "files"]) {
+  for (const key of [ "main", "module", "bin", "files" ]) {
     newContent[key] = templateObj[key]
   }
 
-  for (const key of ["scripts", "dependencies", "devDependencies"]) {
+  for (const key of [ "scripts", "dependencies", "devDependencies" ]) {
     newContent[key] = newContent[key] || {}
 
     for (const valueKeys of Object.keys(templateObj[key])) {
