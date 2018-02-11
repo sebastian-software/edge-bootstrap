@@ -5,14 +5,17 @@ const path = require("path")
 const fs = require("fs")
 
 const tar = require("tar")
+const git = require("simple-git/promise")
 
 console.log("prepack node script")
 
 const CWD = process.cwd()
 const TEMPLATE_PATH = path.join(CWD, "template.tar")
-const EDGE_BOILERPLATE_PATH = path.join(CWD, "..", "edge", "packages", "edge-boilerplate")
+const EDGE_BASE_PATH = path.join(CWD, "..", "edge")
+const EDGE_BOILERPLATE_PATH = path.join(EDGE_BASE_PATH, "packages", "edge-boilerplate")
 
 try {
+  fs.accessSync(EDGE_BASE_PATH, fs.constants.R_OK)
   fs.accessSync(EDGE_BOILERPLATE_PATH, fs.constants.R_OK)
 } catch (error) {
   console.error(`Path ${EDGE_BOILERPLATE_PATH} is not accessible`)
@@ -20,8 +23,39 @@ try {
   process.exit(2)
 }
 
-tar
-  .create(
+function version(tag) {
+  return tag.split("@")[1]
+}
+
+async function main() {
+  // Check for latest edge-boilerplate tag
+  const edgeGit = git(EDGE_BASE_PATH)
+  if (!await edgeGit.checkIsRepo()) {
+    console.log(`Edge path ${EDGE_BASE_PATH} is no git repository`)
+    process.exit(1)
+  }
+
+  await edgeGit.fetch()
+
+  if (await edgeGit.raw(["status", "--porcelain"])) {
+    console.log(`Edge path ${EDGE_BASE_PATH} is no clean git repository`)
+    process.exit(1)
+  }
+
+  const tags = await edgeGit.tags()
+  const latestTag = tags.all.filter((item) => item.startsWith("edge-boilerplate")).pop()
+  const revList = await edgeGit.raw(["rev-list", "-n", "1", latestTag])
+  const edgeHead = await edgeGit.revparse(["HEAD"])
+
+  if (revList !== edgeHead) {
+    console.log(
+      `Edge path ${EDGE_BASE_PATH} is not revision of latest edge-boilerplate tag`
+    )
+    process.exit(1)
+  }
+
+  // Create template.tar from edge-boilerplate code
+  await tar.create(
     {
       file: TEMPLATE_PATH,
       cwd: EDGE_BOILERPLATE_PATH,
@@ -29,11 +63,11 @@ tar
     },
     ["."]
   )
-  .then(() => {
-    console.log("template.tar created")
-    process.exit(0)
-  })
-  .catch((error) => {
-    console.error(error.stack)
-    process.exit(1)
-  })
+  console.log("template.tar created")
+  process.exit(0)
+}
+
+main().catch((error) => {
+  console.error(error.stack)
+  process.exit(1)
+})
