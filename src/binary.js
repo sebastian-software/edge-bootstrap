@@ -40,7 +40,7 @@ function writePackageJson(packageJsonPath, baseObj, templateObj) {
 }
 
 async function main() {
-  console.log(chalk.bold(`edge bootstrap ${chalk.green(`v${pkg.version}`)}`))
+  console.log(chalk.bold(`edge create ${chalk.green(`v${pkg.version}`)}`))
   console.log()
 
   const packageJsonPath = path.join(CWD, "package.json")
