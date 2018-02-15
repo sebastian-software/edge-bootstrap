@@ -83,12 +83,16 @@ async function main() {
           entry.resume()
         })
       } else if (entry.type === "File") {
-        if (entry.path.endsWith("/package.json")) {
+        if (entry.path === "./package.json") {
           spinner.text = "Update file package.json"
-          entry.on("data", (data) => {
-            const templatePackageJson = JSON.parse(data.toString())
+          const chunks = []
+          entry.on("end", () => {
+            const templatePackageJson = JSON.parse(Buffer.concat(chunks).toString())
 
             writePackageJson(packageJsonPath, packageJsonContent, templatePackageJson)
+          })
+          entry.on("data", (data) => {
+            chunks.push(data)
           })
         } else {
           spinner.text = `Create file ${entryPath}`
