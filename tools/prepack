@@ -7,12 +7,16 @@ const fs = require("fs")
 const tar = require("tar")
 const git = require("simple-git/promise")
 
+const micromatch = require("micromatch")
+const gitignore = require("parse-gitignore")
+
 console.log("prepack node script")
 
 const CWD = process.cwd()
 const TEMPLATE_PATH = path.join(CWD, "template.tar")
 const EDGE_BASE_PATH = path.join(CWD, "..", "edge")
 const EDGE_BOILERPLATE_PATH = path.join(EDGE_BASE_PATH, "packages", "edge-boilerplate")
+const GIT_IGNORE = path.join(EDGE_BASE_PATH, ".gitignore")
 
 try {
   fs.accessSync(EDGE_BASE_PATH, fs.constants.R_OK)
@@ -54,12 +58,18 @@ async function main() {
     process.exit(1)
   }
 
+  const gitignorePattern = gitignore(GIT_IGNORE)
+  function filter(path) {
+    return !micromatch.any(path, gitignorePattern)
+  }
+
   // Create template.tar from edge-boilerplate code
   await tar.create(
     {
       file: TEMPLATE_PATH,
       cwd: EDGE_BOILERPLATE_PATH,
-      follow: true
+      follow: true,
+      filter
     },
     ["."]
   )
