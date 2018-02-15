@@ -39,9 +39,9 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "chalk": "^2.3.0",
+    "chalk": "^2.3.1",
     "clipboardy": "^1.2.2",
-    "lean-nodent-runtime": "^1.0.1",
+    "lean-nodent-runtime": "^1.0.2",
     "mkdirp": "^0.5.1",
     "ora": "^1.4.0",
     "tar": "^4.3.3"
@@ -50,8 +50,8 @@
     "chokidar-cli": "^1.2.0",
     "eslint-config-readable": "^1.10.2",
     "lint-staged": "^6.1.0",
-    "prepublish": "^1.6.2",
-    "release-it": "^7.0.0",
+    "prepublish": "^1.6.3",
+    "release-it": "^7.0.2",
     "simple-git": "^1.89.0"
   }
 }
