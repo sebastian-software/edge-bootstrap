@@ -27,14 +27,18 @@ function writePackageJson(packageJsonPath, baseObj, templateObj) {
   const newContent = { ...baseObj }
 
   for (const key of [ "main", "module", "bin", "files" ]) {
-    newContent[key] = templateObj[key]
+    if (key in templateObj) {
+      newContent[key] = templateObj[key]
+    }
   }
 
   for (const key of [ "scripts", "dependencies", "devDependencies" ]) {
     newContent[key] = newContent[key] || {}
 
-    for (const valueKeys of Object.keys(templateObj[key])) {
-      newContent[key][valueKeys] = templateObj[key][valueKeys]
+    if (key in templateObj) {
+      for (const valueKeys of Object.keys(templateObj[key])) {
+        newContent[key][valueKeys] = templateObj[key][valueKeys]
+      }
     }
   }
 
