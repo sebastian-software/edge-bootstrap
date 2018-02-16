@@ -10,6 +10,7 @@ import util from "util"
 import path from "path"
 
 import { write, writeLn } from "./console"
+import { gitIgnoreContent, readmeContent } from "./templateFiles"
 
 import pkg from "../package.json"
 
@@ -102,6 +103,9 @@ async function main() {
     })
     .on("end", () => {
       spinner.succeed("Wrote project files from template")
+
+      fs.createWriteStream(path.join(CWD, ".gitignore")).end(gitIgnoreContent)
+      fs.createWriteStream(path.join(CWD, "readme.md")).end(readmeContent)
 
       const gettingStartedCommand = "npm install && npm run dev"
 
