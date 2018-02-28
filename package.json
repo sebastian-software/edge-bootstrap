@@ -1,6 +1,6 @@
 {
   "name": "edge-create",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Bootstrapping of edge project",
   "repository": {
     "type": "git",
