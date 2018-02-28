@@ -18,6 +18,8 @@ const fsAccess = util.promisify(fs.access)
 const fsReadFile = util.promisify(fs.readFile)
 const CWD = process.cwd()
 
+const PACKAGE_JSON_FILES_SECTION = [ "docs/", "build/", "bin/", ".edgerc.yml" ]
+
 const IS_INTERACTIVE = process.stdout.isTTY
 
 if (IS_INTERACTIVE) {
@@ -27,7 +29,7 @@ if (IS_INTERACTIVE) {
 function writePackageJson(packageJsonPath, baseObj, templateObj) {
   const newContent = { ...baseObj }
 
-  for (const key of [ "main", "module", "bin", "files" ]) {
+  for (const key of [ "main", "module", "bin" ]) {
     if (key in templateObj) {
       newContent[key] = templateObj[key]
     }
@@ -42,6 +44,8 @@ function writePackageJson(packageJsonPath, baseObj, templateObj) {
       }
     }
   }
+
+  newContent.files = PACKAGE_JSON_FILES_SECTION
 
   fs.writeFileSync(packageJsonPath, JSON.stringify(newContent, null, 2))
 }
